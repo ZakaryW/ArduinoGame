@@ -17,7 +17,7 @@ enum event : int8_t{
   lTilt 
   };
 
-volatile int8_t level = 1;         //Level variable (should not exceed 8)
+volatile int8_t level = 1;         //Level variable (should not exceed 9)
 float accelInput;                  //Accelerometer input variable
 event userEvent = event::E_NULL;   //User event var
 event randomEvent[9];              //Random event array
@@ -67,14 +67,15 @@ void loop()
       toCont = false;                                                               //Setting relevant variables in preperation for input
       event userEvent = event::E_NULL;
       inputTimer.start(10000, AsyncDelay::MILLIS);                                   //Amount of time to register an input
-      //////////TODO add corresponding sound component
+      //TODO add corresponding sound component
       while(!toCont)                                                                //Event input stream loop, continually checks for input events
       {
         if(CircuitPlayground.rightButton() && !toCont)                              //Right button input
         {
           delay(50);
           userEvent = event::rPress;
-          EventLED(userEvent); 
+          EventLED(userEvent);
+          delay(200); 
           toCont = true;          
         }
         if(CircuitPlayground.leftButton() && !toCont)                                //Left button input
@@ -82,6 +83,7 @@ void loop()
           delay(50);
           userEvent = event::lPress;
           EventLED(userEvent);
+          delay(200);
           toCont = true;
         }
         if(RightTilt() && !toCont)                                                   //Right tilt input
@@ -89,6 +91,7 @@ void loop()
           delay(50);
           userEvent = event::rTilt;
           EventLED(userEvent);
+          delay(200);
           toCont = true;
         }
         if(LeftTilt() && !toCont)                                                    //Left tilt input
@@ -96,14 +99,14 @@ void loop()
           delay(50);
           userEvent = event::lTilt;
           EventLED(userEvent);
+          delay(200);
           toCont = true;        
         }
         if(inputTimer.isExpired() && !toCont)                                        //If the timer is up and no input has been made, you loose
         {
         hasLost = true;
         toCont = true; 
-        }
-        delay(250); 
+        } 
         CircuitPlayground.clearPixels();    
       }
 
@@ -124,7 +127,6 @@ void loop()
     hasLost = true;
     hasWon = false;
     level = 1;
-    setup();
     loop();
   }
   else if(hasLost && !hasWon)
@@ -135,11 +137,10 @@ void loop()
     hasLost = false;
     hasWon = false;
     level = 1;
-    setup();
     loop();
   }  
 }
-///////////TODO add sound component
+//TODO add sound component
 //Handles the LED output for events
 void EventLED(event dispEvent)
 {
