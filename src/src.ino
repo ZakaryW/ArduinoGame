@@ -17,7 +17,7 @@ enum event : int8_t{
   lTilt 
   };
 
-volatile int8_t level = 1;         //Level variable (should not exceed 9)
+volatile int8_t level = 1;         //Level variable (should not exceed 8)
 float accelInput;                  //Accelerometer input variable
 event userEvent = event::E_NULL;   //User event var
 event randomEvent[9];              //Random event array
@@ -124,6 +124,7 @@ void loop()
     hasLost = true;
     hasWon = false;
     level = 1;
+    setup();
     loop();
   }
   else if(hasLost && !hasWon)
@@ -134,6 +135,7 @@ void loop()
     hasLost = false;
     hasWon = false;
     level = 1;
+    setup();
     loop();
   }  
 }
