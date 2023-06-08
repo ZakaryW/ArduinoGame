@@ -72,34 +72,38 @@ void loop()
       {
         if(CircuitPlayground.rightButton() && !toCont)                              //Right button input
         {
+          CircuitPlayground.playTone(100, 150);
           delay(50);
           userEvent = event::rPress;
           EventLED(userEvent);
-          delay(200); 
+          delay(100); 
           toCont = true;          
         }
         if(CircuitPlayground.leftButton() && !toCont)                                //Left button input
         {
+          CircuitPlayground.playTone(100, 150);
           delay(50);
           userEvent = event::lPress;
           EventLED(userEvent);
-          delay(200);
+          delay(100);
           toCont = true;
         }
         if(RightTilt() && !toCont)                                                   //Right tilt input
         {
+          CircuitPlayground.playTone(50, 150);
           delay(50);
           userEvent = event::rTilt;
           EventLED(userEvent);
-          delay(200);
+          delay(100);
           toCont = true;
         }
         if(LeftTilt() && !toCont)                                                    //Left tilt input
         {
+          CircuitPlayground.playTone(50, 150);
           delay(50);
           userEvent = event::lTilt;
           EventLED(userEvent);
-          delay(200);
+          delay(100);
           toCont = true;        
         }
         if(inputTimer.isExpired() && !toCont)                                        //If the timer is up and no input has been made, you loose
@@ -127,6 +131,7 @@ void loop()
     hasLost = true;
     hasWon = false;
     level = 1;
+    setup();
     loop();
   }
   else if(hasLost && !hasWon)
@@ -137,6 +142,7 @@ void loop()
     hasLost = false;
     hasWon = false;
     level = 1;
+    setup();
     loop();
   }  
 }
@@ -149,18 +155,22 @@ void EventLED(event dispEvent)
   switch(dispEvent)
   {
   case rPress:
+  CircuitPlayground.playTone(100, 150);
   CircuitPlayground.setPixelColor(7, 255, 0, 0);
   break;
   case lPress:
+  CircuitPlayground.playTone(100, 150);
   CircuitPlayground.setPixelColor(2, 0, 0, 255);
   break;
   case rTilt:
   for (i=0; i<5; ++i)
   CircuitPlayground.setPixelColor(i, 255, 0, 0);
+  CircuitPlayground.playTone(50, 150);
   break;
   case lTilt:
   for (i=5; i<10; ++i)
   CircuitPlayground.setPixelColor(i, 0, 0, 255);
+  CircuitPlayground.playTone(50, 150);
   break;
   default:
   break;
