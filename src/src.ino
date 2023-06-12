@@ -67,7 +67,6 @@ void loop()
       toCont = false;                                                               //Setting relevant variables in preperation for input
       event userEvent = event::E_NULL;
       inputTimer.start(10000, AsyncDelay::MILLIS);                                   //Amount of time to register an input
-      //TODO add corresponding sound component
       while(!toCont)                                                                //Event input stream loop, continually checks for input events
       {
         if(CircuitPlayground.rightButton() && !toCont)                              //Right button input
@@ -146,7 +145,7 @@ void loop()
     loop();
   }  
 }
-//TODO add sound component
+
 //Handles the LED output for events
 void EventLED(event dispEvent)
 {
