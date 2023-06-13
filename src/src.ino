@@ -130,8 +130,6 @@ void loop()
     hasLost = true;
     hasWon = false;
     level = 1;
-    setup();
-    loop();
   }
   else if(hasLost && !hasWon)
   {
@@ -141,8 +139,6 @@ void loop()
     hasLost = false;
     hasWon = false;
     level = 1;
-    setup();
-    loop();
   }  
 }
 
